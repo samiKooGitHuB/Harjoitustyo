@@ -29,13 +29,13 @@ public class PizzamaatinTestausOhjelma {
         lista3.add("Herkkusieni");
         lista3.add("Aurajuusto");
 
-        KokoPizza torttu1 = new KokoPizza("Gluteeniton", "Omanimi", lista2,true);
-        KokoPizza torttu2 = new KokoPizza("Ruis","TehtiinPizza", lista3, true);
+        KokoPizza torttu1 = new KokoPizza("Gluteeniton", "Omanimi", lista2);
+        KokoPizza torttu2 = new KokoPizza("Ruis","TehtiinPizza", lista3);
 
 
 
-        torttu1.tulostaKuitti();
-        torttu2.tulostaKuitti();
+
+        //torttu2.tulostaKuitti();
         //torttu1.poistaTayte("Jauheliha");
         //torttu1.tulostaKuitti();
 
@@ -110,6 +110,6 @@ public class PizzamaatinTestausOhjelma {
         if (torttu22 != null) {
             System.out.println(torttu22);
         }*/
-
+        System.out.println(torttu2.getTaytteet());
     }
 }
