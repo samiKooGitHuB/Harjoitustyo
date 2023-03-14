@@ -20,6 +20,9 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     final private double HINTASIENET = 1.00;
     final private double HINTAAURAJUUSTO = 1.00;
     final private double HINTAKANA = 1.00;
+    private String tarkistaNimi = ("");
+    private String tarkistaPohja = ("");
+    private boolean kotiPaketti;
     public double hinta = 0;
 
 
@@ -138,6 +141,21 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     }
 
     /**
+     * Metodi asettaa kotiPaketin arvon
+     * @param arvo boolean
+     */
+    public void setKotiPaketti(boolean arvo){
+        kotiPaketti = arvo;
+    }
+
+    /**
+     * Metodi palauttaa kotiPaketin boolean-arvon
+     * @return boolean
+     */
+    public boolean getKotiPaketti(){
+        return kotiPaketti;
+    }
+    /**
      * Metodi palauttaa pizzan taytteet
      * @return String tayteListaus
      */
@@ -155,18 +173,31 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
      * Tulostetaan pizza-olion tiedot
      */
     public void tulostaKuitti(){
+        String takeAway = ("");
+        tarkistaPohja = getPohja();
+       if (tarkistaPohja == null){
+          tarkistaPohja = "Ei valintaa";
+       }
+        tarkistaNimi = getNimi();
+
+       if ((tarkistaNimi == null) || (tarkistaNimi.equals("Syötä nimi pizzalle") )){
+          tarkistaNimi = "Ei syötettyä arvoa";
+        }
         System.out.println("---------------------------------");
         System.out.println("Pizzojen kokonaismäärä: "+ getPizzojenLkm());
-        System.out.println("Pizzan nimi: " + getNimi());
-        System.out.println("Pohja: " + getPohja());
+        System.out.println("Pizzan nimi: " + tarkistaNimi);
+        System.out.println("Pohja: " + tarkistaPohja);
         System.out.println("Valitut täytteet: ");
        for (int i = 0 ; i < lista.size(); i++){
            System.out.println(lista.get(i));
-
        }
-
+       if (getKotiPaketti()){
+            takeAway = "Kyllä";
+       }
+       else takeAway = "Ei";
+        System.out.println("Kotipakettiin: " + takeAway);
         laskeHinta();
-        System.out.println("Pizzan hinta on: " + String.format("%,.2f" , hinta) + "€");
+        System.out.println("Pizzan hinta on: " + String.format("%,.2f" , hinta) + " €");
         System.out.println("---------------------------------");
 
     }

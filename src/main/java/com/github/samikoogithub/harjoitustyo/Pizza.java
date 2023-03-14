@@ -25,7 +25,7 @@ public class Pizza implements Serializable{
      * Palauttaa luotujen pizza-olioiden lukumaaran
      * @return static int
      */
-    public int getPizzojenLkm(){
+    public static int getPizzojenLkm(){
         return pizzojenLkm;
     }
 
