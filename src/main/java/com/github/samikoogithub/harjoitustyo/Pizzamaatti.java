@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.FileOutputStream;
@@ -22,14 +20,8 @@ import java.io.ObjectInputStream;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-
-
 import static java.lang.System.exit;
-import static javafx.scene.text.FontWeight.BOLD;
 import static javafx.scene.text.FontWeight.EXTRA_BOLD;
 
 public class Pizzamaatti extends Application{
@@ -78,7 +70,7 @@ public class Pizzamaatti extends Application{
 
 
 
-        // Määritellään paneeleja:
+        // Määritellään paneeleja, osa 1:
         StackPane taustaKuvalle = new StackPane();
         BorderPane taustaPaneeli = new BorderPane();
         taustaPaneeli.setPadding(new Insets(20,40,0,250));
