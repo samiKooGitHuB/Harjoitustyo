@@ -22,6 +22,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     final private double HINTAKANA = 1.00;
     private String tarkistaNimi = ("");
     private String tarkistaPohja = ("");
+    private String tarkistaTaytteet = ("");
     private boolean kotiPaketti;
     public double hinta = 0;
 
@@ -132,13 +133,6 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
         lista.add(tayte);
     }
 
-    /**
-     * Metodi taytteen poistamiseen listalta
-     * @param tayte listalta poistettava tayte parametrina
-     */
-    public void poistaTayte(String tayte){
-        lista.remove(tayte);
-    }
 
     /**
      * Metodi asettaa kotiPaketin arvon
@@ -183,11 +177,15 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
        if ((tarkistaNimi == null) || (tarkistaNimi.equals("Syötä nimi pizzalle") )){
           tarkistaNimi = "Ei syötettyä arvoa";
         }
+        if (lista.isEmpty()){
+            tarkistaTaytteet = "Ei täytteitä";
+        }
+        else tarkistaTaytteet = getTaytteet();
+
         System.out.println("---------------------------------");
-        System.out.println("Pizzojen kokonaismäärä: "+ getPizzojenLkm());
         System.out.println("Pizzan nimi: " + tarkistaNimi);
         System.out.println("Pohja: " + tarkistaPohja);
-        System.out.println("Valitut täytteet: ");
+        System.out.println("Valitut täytteet: " + tarkistaTaytteet);
        for (int i = 0 ; i < lista.size(); i++){
            System.out.println(lista.get(i));
        }

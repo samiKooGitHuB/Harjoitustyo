@@ -61,7 +61,4 @@ public class Pizza implements Serializable{
         return this.nimi;
     }
 
-
-
-
 }
