@@ -512,6 +512,7 @@ public class Pizzamaatti extends Application{
                     "\nHinta: " + String.format("%.2f",luettuOlio.laskeHinta()) + " €";
             //tulostetaan konsoliin samat tiedot
             textAlue.setWrapText(true);
+            textAlue.setEditable(false);
             textAlue.setText(kuitinTeksti);
             luettuOlio.tulostaKuitti();
             ilmoitusteksti.setText("Tiedot luettu ja tulostettu.");
