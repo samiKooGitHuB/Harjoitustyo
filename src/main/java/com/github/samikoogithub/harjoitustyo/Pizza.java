@@ -8,11 +8,22 @@ import java.util.ArrayList;
  * lukumaara, pohja, nimi ja taytteet listana.
  */
 public class Pizza implements Serializable{
+    /**
+     * Staattinen kokonaislukukenttä pizzojen lukumaaralle
+     */
     private static int pizzojenLkm = 0;
+    /**
+     * Merkkijono pizzan pohjan tallentamiseen
+     */
     private String pohja;
+    /**
+     * Merkkijono pizzan syötetyn nimen tallentamiseen
+     */
     private String nimi;
+    /**
+     * ArrayList pizzan taytteiden tallentamiseen
+     */
     ArrayList<String> tayteLista = new ArrayList<String>();
-
 
     /**
      * Lisaa pizzojen lukumaaraa staattiseen muuttujaan

@@ -169,6 +169,7 @@ public class Pizzamaatti extends Application{
     @Override
     public void start(Stage alkuIkkuna)  {
 
+
         // Luodaan ensimmäinen pizza
         luotuPizza = new KokoPizza();
 
