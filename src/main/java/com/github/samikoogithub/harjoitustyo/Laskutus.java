@@ -2,7 +2,7 @@ package com.github.samikoogithub.harjoitustyo;
 
 /**
  * Rajapinta Laskutus, jossa metodi "kuitin" tulostukseen (voidaan hyodyntaa esim.
- * ravintolan keittion tulostimelle tulostamissessa=) sekä metodi hinnan laskemiseksi.
+ * ravintolan keittion tulostimelle tulostamissessa) seka metodi hinnan laskemiseksi.
  */
 public interface Laskutus {
     /**
