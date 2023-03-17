@@ -7,6 +7,8 @@ import java.util.ArrayList;
  * Luokkaa perii Pizza-luokan ja laajentaa sita.
  * Vakioina taytteiden hinnat. Boolean-muuttuja tiedolle valkosipulista.
  * Double-muuttujana hinta.
+ * @author samikoti
+ * @version 2.0
  */
 public class KokoPizza extends Pizza implements Laskutus, Serializable {
     final private double PIZZAPOHJA = 10.00;

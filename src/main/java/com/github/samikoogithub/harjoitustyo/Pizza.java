@@ -6,6 +6,8 @@ import java.util.ArrayList;
 /**
  * Luokka toteuttaa yksinkertaisen pizzan, jolla on
  * lukumaara, pohja, nimi ja taytteet listana.
+ * @author samikoti
+ * @version 2.0
  */
 public class Pizza implements Serializable{
     /**
