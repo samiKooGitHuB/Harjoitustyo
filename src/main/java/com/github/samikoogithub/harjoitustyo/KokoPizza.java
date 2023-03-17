@@ -154,6 +154,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
         String tayteListaus = "";
         for (String s : tayteLista) {
             tayteListaus += s;
+            tayteListaus += "\n";
         }
         return tayteListaus;
         }
