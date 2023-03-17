@@ -11,7 +11,7 @@ public class Pizza implements Serializable{
     private static int pizzojenLkm = 0;
     private String pohja;
     private String nimi;
-    ArrayList<String> lista = new ArrayList<String>();
+    ArrayList<String> tayteLista = new ArrayList<String>();
 
 
     /**
