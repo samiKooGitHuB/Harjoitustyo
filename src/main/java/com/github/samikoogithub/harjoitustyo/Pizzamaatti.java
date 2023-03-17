@@ -372,8 +372,8 @@ public class Pizzamaatti extends Application{
             lisaaTaytteet();
             txtTaytteet.setText("");
             txtTaytteet.setText(luotuPizza.getTaytteet());
+            txtHinta.setText("Hinta: " + String.format("%.2f",luotuPizza.laskeHinta()));
 
-            txtHinta.setText("Hinta: " + luotuPizza.laskeHinta());
         });
 
         // Maaritellaan eri paneeleihin tulevat elementit

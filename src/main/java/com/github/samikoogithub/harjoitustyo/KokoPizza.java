@@ -48,7 +48,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
         super.tayteLista = lista;
         setPizzojenLkm();
 
-    };
+    }
     /**
      * Haetaan ananaksen hinta vakiosta
      *@return  double HINTAANANAS
@@ -126,7 +126,8 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     }
 
     /**
-     * Lisataan tayte lista-nimiseen listaan
+     * Metodi lisatty tulevaisuuden laajennustarpeiden varalle,
+     *  talla hetkella ei kayttoa
      */
     public void lisaaTayte(String tayte){ tayteLista.add(tayte); }
 
@@ -151,10 +152,8 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
      */
     public String getTaytteet(){
         String tayteListaus = "";
-        for (int i = 0 ; i < tayteLista.size(); i++){
-            tayteListaus += tayteLista.get(i);
-            tayteListaus += "\n";
-
+        for (String s : tayteLista) {
+            tayteListaus += s;
         }
         return tayteListaus;
         }
@@ -163,7 +162,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
      * Tulostetaan pizza-olion tiedot
      */
     public void tulostaKuitti(){
-        String takeAway = ("");
+        String takeAway;
         tarkistaPohja = getPohja();
        if (tarkistaPohja == null){
           tarkistaPohja = "Ei valintaa";
@@ -176,24 +175,22 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
 
        if (tayteLista.isEmpty()){
             tarkistaTaytteet = "Ei täytteitä";
-        }
+       }
        else tarkistaTaytteet = getTaytteet();
 
-        if (getKotiPaketti()){
+       if (getKotiPaketti()){
             takeAway = "Kyllä";
-        }
-        else takeAway = "Ei";
+       }
+       else takeAway = "Ei";
 
-
-        System.out.println("---------------------------------");
-        System.out.println("Pizzan nimi: " + tarkistaNimi);
-        System.out.println("Kotipakettiin: " + takeAway);
-        System.out.println("Pohja: " + tarkistaPohja);
-        System.out.println("Valitut täytteet:\n" + tarkistaTaytteet);
-        laskeHinta();
-        System.out.println("Pizzan hinta on: " + String.format("%,.2f" , hinta) + " €");
-        System.out.println("---------------------------------");
-
+       System.out.println("---------------------------------");
+       System.out.println("Pizzan nimi: " + tarkistaNimi);
+       System.out.println("Kotipakettiin: " + takeAway);
+       System.out.println("Pohja: " + tarkistaPohja);
+       System.out.println("Valitut täytteet:\n" + tarkistaTaytteet);
+       laskeHinta();
+       System.out.println("Pizzan hinta on: " + String.format("%,.2f" , hinta) + " €");
+       System.out.println("---------------------------------");
     }
 
     /**
@@ -205,17 +202,17 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
         hinta = 0;
         hinta += PIZZAPOHJA;
 
-        if (tayteLista.contains("Ananas")) hinta += HINTAANANAS;
-        if (tayteLista.contains("Tomaatti")) hinta += HINTATOMAATTI;
-        if (tayteLista.contains("Katkarapu")) hinta += HINTAKATKARAPU;
-        if (tayteLista.contains("Kinkku")) hinta += HINTAKINKKU;
-        if (tayteLista.contains("Tonnikala")) hinta += HINTATONNIKALA;
-        if (tayteLista.contains("Valkosipuli")) hinta += HINTAVALKOSIPULI;  // Vaikka hinta tällä
-        // hetkellä on 0.00, niin tällä varaudutaan mahdolliseen hinnannousuun.
-        if (tayteLista.contains("Jauheliha")) hinta += HINTAJAUHELIHA;
-        if (tayteLista.contains("Herkkusieni")) hinta += HINTASIENET;
-        if (tayteLista.contains("Kana")) hinta += HINTAKANA;
-        if (tayteLista.contains("Aurajuusto")) hinta += HINTAAURAJUUSTO;
+        if (tayteLista.contains("Ananas")) hinta += getHintaAnanas();
+        if (tayteLista.contains("Tomaatti")) hinta += getHintaTomaatti();
+        if (tayteLista.contains("Katkarapu")) hinta += getHintaKatkarapu();
+        if (tayteLista.contains("Kinkku")) hinta += getHintaKinkku();
+        if (tayteLista.contains("Tonnikala")) hinta += getHintaTonnikala();
+        if (tayteLista.contains("Valkosipuli")) hinta += getHintaValkosipuli();  // Vaikka hinta tällä
+        // hetkellä on 0.00, niin varaudutaan mahdolliseen hinnannousuun.
+        if (tayteLista.contains("Jauheliha")) hinta += getHintaJauheliha();
+        if (tayteLista.contains("Herkkusieni")) hinta += getHintaSienet();
+        if (tayteLista.contains("Kana")) hinta += getHintaKana();
+        if (tayteLista.contains("Aurajuusto")) hinta += getHintaAuraJuusto();
         return hinta;
     }
 
