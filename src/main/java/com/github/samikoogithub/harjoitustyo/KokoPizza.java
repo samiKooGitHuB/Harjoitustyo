@@ -79,7 +79,6 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
      */
     public double hinta = 0;
 
-
     /**
      * Tyhjä konstruktori
      *
@@ -179,8 +178,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     }
 
     /**
-     * Metodi lisatty tulevaisuuden laajennustarpeiden varalle,
-     *  talla hetkella ei kayttoa
+     * Metodi taytteiden lisaamiseksi olion tayteListalle
      * @param tayte String lisattava tayte
      */
     public void lisaaTayte(String tayte){ tayteLista.add(tayte); }

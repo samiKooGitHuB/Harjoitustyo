@@ -187,6 +187,7 @@ public class Pizzamaatti extends Application{
         HBox keskiPaneeli = new HBox();
         VBox valitutTuotteet = new VBox(15);
         VBox paneeliCheckboxeille = new VBox(20);
+        VBox paneeliKuitille = new VBox(15);
 
 
         // Maaritetaan alimmaisena nakyva taustakuva
@@ -202,7 +203,6 @@ public class Pizzamaatti extends Application{
         taustaPaneeli.setPadding(new Insets(20,40,0,250));
         taustaPaneeli.setAlignment(txtOtsikko, Pos.TOP_CENTER);
         keskiPaneeli.setPadding(new Insets(20,20,0,120));
-        VBox paneeliKuitille = new VBox();
         paneeliKuitille.setPadding(new Insets(25,5,0,0));
         paneeliCheckboxeille.setPadding(new Insets(5, 50, 5, 5));
         valitutTuotteet.setPadding(new Insets(5,0,0,0));
@@ -268,6 +268,7 @@ public class Pizzamaatti extends Application{
         chkAuraJuusto.setStyle("-fx-text-fill: white");
         chkKana.setStyle("-fx-text-fill: white");
         chkKotipaketti.setStyle("-fx-text-fill: white");
+
 
         // Maaritetaan ComboBox pohjan valitsemiselle
         ComboBox<String> cbo = new ComboBox<>();
@@ -387,6 +388,10 @@ public class Pizzamaatti extends Application{
         btLueTiedot.setOnAction(e -> lueTiedosto());
 
         // Toiminnot, kun painetaan "Poista pizza"-painiketta
+        // Tähän olioiden poistamisen toteuttavaan
+        // koodiin olen katsonut vinkkiä Youtubesta:
+        // https://www.youtube.com/watch?v=0viOmE1RqB0
+        //
         btPoista.setOnAction(e ->{
             for (int i = pizzatKirjoitus.size() -1; i >= 0; i--)
             {
@@ -427,9 +432,8 @@ public class Pizzamaatti extends Application{
         nappulaPaneeli.add(btTyhjaa,1,1);
         nappulaPaneeli.add(btTalletaTiedot, 2,0);
         nappulaPaneeli.add(btLueTiedot,2,1);
-        //nappulaPaneeli.add(btPoista,3,0);
-        nappulaPaneeli.add(btLopeta,6,1);
-        //nappulaPaneeli.add(tfPoistettava,4,0);
+        nappulaPaneeli.add(btLopeta,3,1);
+
 
         // Asetetaan taustapaneeliin muut paneelit/teksti
         taustaPaneeli.setTop(txtOtsikko);
