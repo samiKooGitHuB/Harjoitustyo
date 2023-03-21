@@ -1,3 +1,6 @@
+/**
+ * Module-info
+ */
 module com.github.samikoogithub.harjoitustyo {
     requires javafx.controls;
     requires javafx.fxml;

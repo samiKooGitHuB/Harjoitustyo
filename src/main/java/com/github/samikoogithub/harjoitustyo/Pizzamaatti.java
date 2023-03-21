@@ -27,9 +27,10 @@ import static javafx.scene.text.FontWeight.EXTRA_BOLD;
 /**
  * Pizza- ja KokoPizza-luokkia kayttava kayttoliittyma, jolla voidaan
  * luoda pizzoja valinnaisen pohjan ja taytteiden kera, antaa pizzalle
- * nimi ja tallentaa seka lukea tietoja tiedostosta.
- * @ samikoti
- * @version 1.0
+ * nimi ja tallentaa seka lukea tietoja tiedostosta. Tietoja voi myos
+ * poistaa pizzan nimella.
+ * @author samikoti
+ * @version 2.0
  */
 public class Pizzamaatti extends Application{
 
@@ -42,18 +43,21 @@ public class Pizzamaatti extends Application{
      */
     private final Button btLaskeHinta = new Button("Laske hinta");
     /**
-     * Painike tietojen tallentamiselle tiedostoon
+     * Painike tietojen tallentamiselle taulukosta tiedostoon
      */
-    private final Button btTalletaTiedot = new Button("Talleta & luo uusi pizza");
+    private final Button btTalletaTiedot = new Button("Talleta & Luo uusi pizza");
     /**
-     * Painike tietojen lukemiselle tiedostosta
+     * Painike tietojen lukemiselle taulukkoon tiedostosta
      */
-    private final Button btLueTiedot = new Button("Lue  & tulosta tiedot");
+    private final Button btLueTiedot = new Button("Lue  & Tulosta tiedot");
     /**
      * Painike naytolla olevien tietojen tyhjaamiseen
      */
     private final Button btTyhjaa = new Button("Tyhjää tiedot");
-    //private final Button btTulosta = new Button("Tulosta");
+    /**
+     * Painike pizzan poistamiseksi taulukosta
+     */
+    private final Button btPoista = new Button("Poista");
     /**
      * Otsikko valitulle pizzapohjalle
      */
@@ -62,7 +66,6 @@ public class Pizzamaatti extends Application{
      * Otsikko annetulle pizzan nimelle
      */
     private final Label lbNimi = new Label("Nimi: ");
-    //private final Label lbKuitti = new Label("Kuitti:");
     /**
      * Otsikko taytteiden valinnalle
      */
@@ -76,13 +79,17 @@ public class Pizzamaatti extends Application{
      */
     private final Label lbKuvanTekija = new Label("Photo by Jack Moreh");
     /**
-     * Kokopizza-tyyppinen muuttuja luotuPizza
-     */
-    private KokoPizza luotuPizza;
-    /**
      * Pizzan nimen tekstikentta
      */
     private final TextField tfPizzannimi = new TextField("Syötä nimi pizzalle");
+    /**
+     * Poistettavan pizzan nimen tekstikentta
+     */
+    private final TextField tfPoistettava = new TextField("Mikä pizza poistetaan?");
+    /**
+     * Kokopizza-tyyppinen muuttuja luotuPizza
+     */
+    private KokoPizza luotuPizza;
     /**
      * Otsikko ikkunan ylaosaan
      */
@@ -180,7 +187,7 @@ public class Pizzamaatti extends Application{
         HBox keskiPaneeli = new HBox();
         VBox valitutTuotteet = new VBox(15);
         VBox paneeliCheckboxeille = new VBox(20);
-        //StackPane kuvaPaneeli = new StackPane();
+
 
         // Maaritetaan alimmaisena nakyva taustakuva
         Image kuva1 = new Image("file:pizzaBackground.jpg"); //haetaan kuva
@@ -206,6 +213,7 @@ public class Pizzamaatti extends Application{
         btLopeta.setPrefWidth(90);
         btLaskeHinta.setPrefWidth(90);
         btTalletaTiedot.setPrefWidth(150);
+        btPoista.setPrefWidth(90);
 
         // Maaritetaan hiiritoiminto: jos textAlueella tekstia, niin naytetaan
         // oheinen teksti, muuten ei mitaan.
@@ -227,7 +235,8 @@ public class Pizzamaatti extends Application{
                         Tervetuloa
                       Pizzamaattiin!
                 **************************
-                Voit luoda erilaisia pizzoja, nimetä ne, tallentaa tiedostoon ja tulostaa tiedot.
+                Voit luoda erilaisia pizzoja, nimetä ne, tallentaa tiedostoon, tulostaa tiedot
+                ja myös poistaa luomiasi pizzoja.
 
                 ********* Enjoy! *********""");
         textAlue.setFont(Font.font("Lucida Calligraphy", EXTRA_BOLD,12));
@@ -286,8 +295,8 @@ public class Pizzamaatti extends Application{
         // Luetaan pizzan nimi tekstikentasta
         // ja asetetaan se olion nimeksi.
         tfPizzannimi.setOnAction(e -> {
-            if (tfPizzannimi.getText().length() > 10){
-                tfPizzannimi.setText("Liian pitkä, max 10 merkkiä");
+            if (tfPizzannimi.getText().length() > 11){
+                tfPizzannimi.setText("Liian pitkä, max 11 merkkiä");
             }
             else {
             String uusiNimi = tfPizzannimi.getText();
@@ -297,7 +306,14 @@ public class Pizzamaatti extends Application{
             }
 
         });
+        tfPoistettava.setOnAction(e ->{
+            if (tfPoistettava.getText().length() > 11){
+                tfPoistettava.setText("Liian pitkä, max 11 merkkiä");
+            }
+
+        });
         tfPizzannimi.setOnMouseClicked(e -> tfPizzannimi.clear());
+        tfPoistettava.setOnMouseClicked(e -> tfPoistettava.clear());
 
         // Maaritellaan painikkeille toimintoja
 
@@ -308,9 +324,11 @@ public class Pizzamaatti extends Application{
             pizzatKirjoitus.add(luotuPizza);
             talletaTiedosto();
             exit(0);});
+
         // Toiminnot, kun painetaan "Talleta & Luo uusi pizza"- painiketta
         btTalletaTiedot.setOnAction(e -> {
             luotuPizza.setNimi(tfPizzannimi.getText());
+            luotuPizza.tayteLista.clear();
             lisaaTaytteet();
             pizzatKirjoitus.add(luotuPizza);
             luotuPizza = new KokoPizza();
@@ -336,7 +354,8 @@ public class Pizzamaatti extends Application{
             talletaTiedosto();
             textAlue.setFont(Font.font("Times New Roman,12"));
             textAlue.setWrapText(true);
-            ilmoitusteksti.setText("Tadaa! Tiedot tallennettu.");
+
+            textAlue.setText("Tadaa! Tiedot tallennettu.");
         });
         // Toiminnot, kun painetaan "Tyhjaa tiedot"- painiketta
         btTyhjaa.setOnAction(e -> {
@@ -361,10 +380,28 @@ public class Pizzamaatti extends Application{
                     txtKuitti.setText("");
                     txtKuitinPvm.setText("");
                     textAlue.setText("");
+                    tfPoistettava.setText("Poista pizza listalta:");
                 }
         );
         // Toiminnot, kun painetaan "Lue & tulosta tiedot"- painiketta
         btLueTiedot.setOnAction(e -> lueTiedosto());
+
+        // Toiminnot, kun painetaan "Poista pizza"-painiketta
+        btPoista.setOnAction(e ->{
+            for (int i = pizzatKirjoitus.size() -1; i >= 0; i--)
+            {
+                if(pizzatKirjoitus.get(i).getNimi().equals(tfPoistettava.getText())
+                        || pizzatKirjoitus.get(i).getNimi().equals("Syötä nimi pizzalle")){
+                    pizzatKirjoitus.remove(i);
+                    talletaTiedosto();
+                    textAlue.setText("Pizza poistettu listalta!");
+                }
+                else {
+                    textAlue.setText("Eipä löytynyt sen nimistä!");}
+            }
+            tfPoistettava.setText("Poista pizza listalta:");
+
+        });
         // Toiminnot, kun painetaan "Laske hinta"- painiketta
         btLaskeHinta.setOnAction(e -> {
             luotuPizza.tayteLista.clear();
@@ -378,19 +415,21 @@ public class Pizzamaatti extends Application{
         });
 
         // Maaritellaan eri paneeleihin tulevat elementit
-        valitutTuotteet.getChildren().addAll(tfPizzannimi,chkKotipaketti,
+        valitutTuotteet.getChildren().addAll(tfPizzannimi,chkKotipaketti, maara,
                 lbPohja,txtPohja,lbNimi,pizzanNimi,lbValitutTaytteet,txtTaytteet,txtHinta);
         paneeliCheckboxeille.getChildren().addAll(cbo, lbValitseTaytteet, chkAnanas,chkTomaatti,
                 chkKatkarapu, chkKinkku, chkTonnikala,chkJauheliha, chkSienet,chkAuraJuusto,
                 chkKana,chkValkoSipuli);
-        paneeliKuitille.getChildren().addAll(textAlue, maara, ilmoitusteksti);
+        paneeliKuitille.getChildren().addAll(textAlue,ilmoitusteksti,tfPoistettava,btPoista);
         keskiPaneeli.getChildren().addAll(paneeliCheckboxeille, valitutTuotteet);
         nappulaPaneeli.add(lbKuvanTekija,0,1);
         nappulaPaneeli.add(btLaskeHinta,1,0);
         nappulaPaneeli.add(btTyhjaa,1,1);
         nappulaPaneeli.add(btTalletaTiedot, 2,0);
         nappulaPaneeli.add(btLueTiedot,2,1);
-        nappulaPaneeli.add(btLopeta,3,1);
+        //nappulaPaneeli.add(btPoista,3,0);
+        nappulaPaneeli.add(btLopeta,6,1);
+        //nappulaPaneeli.add(tfPoistettava,4,0);
 
         // Asetetaan taustapaneeliin muut paneelit/teksti
         taustaPaneeli.setTop(txtOtsikko);
@@ -409,7 +448,6 @@ public class Pizzamaatti extends Application{
         alkuIkkuna.setScene(kehys);                                     // Sijoitetaan kehys ikkunaan
         alkuIkkuna.show();                                              // Naytetaan ikkuna
 
-
     }
 
     /**
@@ -421,48 +459,48 @@ public class Pizzamaatti extends Application{
     }
 
     /**
-     * Metodi lisaa valitut taytteet olion taytteet-listalle
+     * Metodi lisaa valitut taytteet luotuPizza-olion taytteet-listalle
      */
     private void lisaaTaytteet(){
 
         if (chkAnanas.isSelected()) {
-            luotuPizza.tayteLista.add("Ananas");
+            luotuPizza.lisaaTayte("Ananas");
         }
 
         if (chkTomaatti.isSelected()) {
-            luotuPizza.tayteLista.add("Tomaatti");
+            luotuPizza.lisaaTayte("Tomaatti");
         }
 
         if (chkKatkarapu.isSelected()) {
-            luotuPizza.tayteLista.add("Katkarapu");
+            luotuPizza.lisaaTayte("Katkarapu");
         }
 
         if (chkKinkku.isSelected()) {
-            luotuPizza.tayteLista.add("Kinkku");
+            luotuPizza.lisaaTayte("Kinkku");
         }
 
         if (chkTonnikala.isSelected()) {
-            luotuPizza.tayteLista.add("Tonnikala");
+            luotuPizza.lisaaTayte("Tonnikala");
         }
 
         if (chkValkoSipuli.isSelected()) {
-            luotuPizza.tayteLista.add("Valkosipuli");
+            luotuPizza.lisaaTayte("Valkosipuli");
         }
 
         if (chkJauheliha.isSelected()) {
-            luotuPizza.tayteLista.add("Jauheliha");
+            luotuPizza.lisaaTayte("Jauheliha");
         }
 
         if (chkSienet.isSelected()) {
-            luotuPizza.tayteLista.add("Herkkusieni");
+            luotuPizza.lisaaTayte("Herkkusieni");
         }
 
         if (chkKana.isSelected()){
-            luotuPizza.tayteLista.add("Kana");
+            luotuPizza.lisaaTayte("Kana");
         }
 
         if (chkAuraJuusto.isSelected()) {
-            luotuPizza.tayteLista.add("Aurajuusto");
+            luotuPizza.lisaaTayte("Aurajuusto");
         }
 
         if (chkKotipaketti.isSelected()){
@@ -472,7 +510,9 @@ public class Pizzamaatti extends Application{
 
     /**
      *  Metodi oliotaulukon tallentamiseen tiedostoon
-     *  Sisaltaa poikkeustenkasittelyt.
+     *  Sisaltaa poikkeustenkasittelyt:
+     *  FileNotFoundException: konsolille ja ohjelmaan tulostetaan tieto virheesta
+     *  IOException: heitetään RunTimeException
      */
     private void talletaTiedosto(){
 
@@ -483,7 +523,8 @@ public class Pizzamaatti extends Application{
              }
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
-            System.out.println("Virhettä pukkaa.");
+            System.out.println("Tiedostoa ei löytynyt.");
+            ilmoitusteksti.setText("Tiedostovirhe.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -491,8 +532,12 @@ public class Pizzamaatti extends Application{
     }
 
     /**
-     * Metodi lukee tiedot tiedostosta ja tulostaa naytolle & konsolille
-     * Sisaltaa poikkeustenkasittelyt
+     * Metodi lukee tiedot tiedostosta ja tulostaa naytolle ja konsolille
+     * Sisaltaa poikkeustenkasittelyt:
+     * FileNotFoundException: jos tiedostoa ei loydy (alkuvaihe ohjelmaa ensimmaista kertaa
+     * kaytettaessa), niin siita annetaan konsolissa ja ohjelmassa ilmoitus.
+     * IOException: heitetään RuntimeException
+     * ClassNotFoundException: konsolille ja ohjelmaan annetaan ilmoitus
      */
     private void lueTiedosto() {
         pizzatKirjoitus.clear();
@@ -507,22 +552,28 @@ public class Pizzamaatti extends Application{
             }
         } catch (FileNotFoundException fnfe) {
             System.out.println("Tiedostoa ei löytynyt, mutta ei haittaa! Voit jatkaa pizzojen tekoa!");
+            textAlue.setText("Tiedostoa ei löytynyt, mutta voit jatkaa!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException ff){
             ff.printStackTrace();
             System.out.println("Luokkavirhe.");
+            ilmoitusteksti.setText("Luokkavirhe tiedostonluvussa.");
         }
 
         String tarkistaNimi;
         String tarkistaPohja;
         String takeAway;
         String tarkistaTaytteet;
-        String kuitinTeksti = ("Kuitti: ");
+        String kuitinTeksti = ("Pizzamaatin Kuittimaatti: ");
 
         textAlue.setFont(Font.font("Times New Roman",12));
         textAlue.setWrapText(true);
+        if (pizzatKirjoitus.isEmpty()){
+            textAlue.setText("******** Tyhjä lista! ********");}
+
         for (KokoPizza luettuOlio : pizzatKirjoitus){
+
             if (luettuOlio.getNimi() == null || "Syötä nimi pizzalle".equals(luettuOlio.getNimi()))
                 tarkistaNimi = "Ei valintaa";
             else
@@ -540,12 +591,13 @@ public class Pizzamaatti extends Application{
                 tarkistaTaytteet = "Ei täytteitä";
             else tarkistaTaytteet = "\n" + luettuOlio.getTaytteet();
 
-            kuitinTeksti += ("\n---- " + txtPvm + " ----") +
+            kuitinTeksti += ("\n------ " + txtPvm + " ------") +
             "\nPizzan nimi: "+ tarkistaNimi +
                     "\nKotipaketti: " + takeAway +
                     "\nPohja: " + tarkistaPohja +
                     "\nTäytteet: " + tarkistaTaytteet +
-                    "\nHinta: " + String.format("%.2f",luettuOlio.laskeHinta()) + " €";
+                    "\nHinta: " + String.format("%.2f",luettuOlio.laskeHinta()) + " €" +
+                    "\n------- Hyvää ruokahalua ! ------";
             //tulostetaan konsoliin samat tiedot
             textAlue.setWrapText(true);
             textAlue.setEditable(false);
@@ -556,4 +608,5 @@ public class Pizzamaatti extends Application{
         }
 
     }
+
 }

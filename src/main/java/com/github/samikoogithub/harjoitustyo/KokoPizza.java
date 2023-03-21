@@ -11,21 +11,72 @@ import java.util.ArrayList;
  * @version 2.0
  */
 public class KokoPizza extends Pizza implements Laskutus, Serializable {
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double PIZZAPOHJA = 10.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAANANAS = 0.30;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTATOMAATTI = 0.50;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAKATKARAPU = 1.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAKINKKU = 0.75;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTATONNIKALA = 1.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAVALKOSIPULI = 0.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAJAUHELIHA = 1.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTASIENET = 1.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAAURAJUUSTO = 1.00;
+    /**
+     * Asetetaan vakio hintamuutoksia helpottamaan
+     */
     final private double HINTAKANA = 1.00;
+    /**
+     * Merkkijono-tyyppinen muuttuja. Kaytetaan tulostuksessa, kun tarkistetaan, etta onko
+     * tieto tyhja ja muokataan tulostetta sen mukaan.
+     */
     private String tarkistaNimi = ("");
+    /**
+     * Merkkijono-tyyppinen muuttuja. Kaytetaan tulostuksessa, kun tarkistetaan, etta onko
+     * tieto tyhja ja muokataan tulostetta sen mukaan.
+     */
     private String tarkistaPohja = ("");
+    /**
+     * Merkkijono-tyyppinen muuttuja. Kaytetaan tulostuksessa, kun tarkistetaan, etta onko
+     * tieto tyhja ja muokataan tulostetta sen mukaan.
+     */
     private String tarkistaTaytteet = ("");
+    /**
+     * Boolean-tyyppinen muuttuja sen mukaan, etta halutaanko pizza kotipakettiin
+     */
     private boolean kotiPaketti;
+    /**
+     * Double-tyyppinen muuttuja hinnan laskemiseen
+     */
     public double hinta = 0;
 
 
@@ -41,7 +92,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
      * Konstruktori parametreilla, lisataan pizzojen lukumaaraa yhdella staattiseen muuuttujaan
      * @param pohja String Mika pohja valittu
      * @param nimi String Pizzalle annettu nimmi
-     * @param lista ArrayList<String> Taytteet listana
+     * @param lista ArrayList Taytteet listana
      *
      */
     public KokoPizza(String pohja, String nimi, ArrayList<String> lista){
@@ -130,6 +181,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
     /**
      * Metodi lisatty tulevaisuuden laajennustarpeiden varalle,
      *  talla hetkella ei kayttoa
+     * @param tayte String lisattava tayte
      */
     public void lisaaTayte(String tayte){ tayteLista.add(tayte); }
 
@@ -173,7 +225,7 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
         tarkistaNimi = getNimi();
 
        if ((tarkistaNimi == null) || (tarkistaNimi.equals("Syötä nimi pizzalle") )){
-          tarkistaNimi = "Ei syötettyä arvoa";
+          tarkistaNimi = "Ei valintaa";
         }
 
        if (tayteLista.isEmpty()){

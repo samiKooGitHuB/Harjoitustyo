@@ -14,7 +14,7 @@ public interface Laskutus {
 
     /**
      * rajapintametodi, selitetty tarkemmin KokoPizza-luokan yhteydessa
-     * @return
+     * @return  double yhteenlaskettu hinta
      */
     double laskeHinta();
 }
