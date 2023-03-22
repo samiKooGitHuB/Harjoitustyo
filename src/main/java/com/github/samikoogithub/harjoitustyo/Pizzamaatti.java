@@ -49,7 +49,7 @@ public class Pizzamaatti extends Application{
     /**
      * Painike tietojen lukemiselle taulukkoon tiedostosta
      */
-    private final Button btLueTiedot = new Button("Lue  & Tulosta tiedot");
+    private final Button btLueTiedot = new Button("Lue & Tulosta tiedot");
     /**
      * Painike naytolla olevien tietojen tyhjaamiseen
      */
@@ -79,21 +79,9 @@ public class Pizzamaatti extends Application{
      */
     private final Label lbKuvanTekija = new Label("Photo by Jack Moreh");
     /**
-     * Pizzan nimen tekstikentta
-     */
-    private final TextField tfPizzannimi = new TextField("Syötä nimi pizzalle");
-    /**
-     * Poistettavan pizzan nimen tekstikentta
-     */
-    private final TextField tfPoistettava = new TextField("Mikä pizza poistetaan?");
-    /**
      * Kokopizza-tyyppinen muuttuja luotuPizza
      */
     private KokoPizza luotuPizza;
-    /**
-     * Otsikko ikkunan ylaosaan
-     */
-    private final Text txtOtsikko = new Text("Pizzamaatti");
     /**
      * CheckBox taytteelle ananas
      */
@@ -143,6 +131,18 @@ public class Pizzamaatti extends Application{
      * tiedostosta
      */
     private ArrayList<KokoPizza> pizzatKirjoitus = new ArrayList<>();
+    /**
+     * Pizzan nimen tekstikentta
+     */
+    private final TextField tfPizzannimi = new TextField("Syötä nimi pizzalle");
+    /**
+     * Poistettavan pizzan nimen tekstikentta
+     */
+    private final TextField tfPoistettava = new TextField("Mikä pizza poistetaan?");
+    /**
+     * Otsikko ikkunan ylaosaan
+     */
+    private final Text txtOtsikko = new Text("Pizzamaatti");
     /**
      * Teksti kirjoitetun pizzan nimen nayttamiseksi ruudulla
      */
