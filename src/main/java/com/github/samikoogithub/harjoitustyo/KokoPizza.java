@@ -222,10 +222,6 @@ public class KokoPizza extends Pizza implements Laskutus, Serializable {
        }
         tarkistaNimi = getNimi();
 
-       if ((tarkistaNimi == null) || (tarkistaNimi.equals("Syötä nimi pizzalle") )){
-          tarkistaNimi = "Ei valintaa";
-        }
-
        if (tayteLista.isEmpty()){
             tarkistaTaytteet = "Ei täytteitä";
        }

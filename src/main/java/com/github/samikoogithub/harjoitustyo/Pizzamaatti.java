@@ -160,6 +160,10 @@ public class Pizzamaatti extends Application{
      */
     private final Text ilmoitusteksti = new Text("");
     /**
+     * Teksti poistettavalle pizzan nimen näyttämiselle
+     */
+    private final Text poistoNimi = new Text("");
+    /**
      * Text kuitin tietojen kokoamiseen
      */
     private final Text txtKuitti = new Text("");
@@ -256,6 +260,7 @@ public class Pizzamaatti extends Application{
         lbPohja.setStyle("-fx-text-fill: white");
         lbNimi.setStyle("-fx-text-fill: white");
         ilmoitusteksti.setFill(Color.WHITE);
+        poistoNimi.setFill(Color.WHITE);
         tfPizzannimi.setPrefWidth(180);
         chkAnanas.setStyle("-fx-text-fill: white");
         chkTomaatti.setStyle("-fx-text-fill: white");
@@ -310,7 +315,7 @@ public class Pizzamaatti extends Application{
         tfPoistettava.setOnAction(e ->{
             if (tfPoistettava.getText().length() > 11){
                 tfPoistettava.setText("Liian pitkä, max 11 merkkiä");
-            }
+            } else poistoNimi.setText("Valittu poistettavaksi: " + tfPoistettava.getText());
 
         });
         tfPizzannimi.setOnMouseClicked(e -> tfPizzannimi.clear());
@@ -328,7 +333,10 @@ public class Pizzamaatti extends Application{
 
         // Toiminnot, kun painetaan "Talleta & Luo uusi pizza"- painiketta
         btTalletaTiedot.setOnAction(e -> {
-            luotuPizza.setNimi(tfPizzannimi.getText());
+            if ("Syötä nimi pizzalle".equals(tfPizzannimi.getText())){
+                luotuPizza.setNimi("Ei nimeä");
+            }
+            else luotuPizza.setNimi(tfPizzannimi.getText());
             luotuPizza.tayteLista.clear();
             lisaaTaytteet();
             pizzatKirjoitus.add(luotuPizza);
@@ -396,7 +404,7 @@ public class Pizzamaatti extends Application{
             for (int i = pizzatKirjoitus.size() -1; i >= 0; i--)
             {
                 if(pizzatKirjoitus.get(i).getNimi().equals(tfPoistettava.getText())
-                        || pizzatKirjoitus.get(i).getNimi().equals("Syötä nimi pizzalle")){
+                        || pizzatKirjoitus.get(i).getNimi().equals("Ei nimeä")){
                     pizzatKirjoitus.remove(i);
                     talletaTiedosto();
                     textAlue.setText("Pizza poistettu listalta!");
@@ -404,6 +412,7 @@ public class Pizzamaatti extends Application{
                 else {
                     textAlue.setText("Eipä löytynyt sen nimistä!");}
             }
+            poistoNimi.setText("");
             tfPoistettava.setText("Poista pizza listalta:");
 
         });
@@ -425,7 +434,7 @@ public class Pizzamaatti extends Application{
         paneeliCheckboxeille.getChildren().addAll(cbo, lbValitseTaytteet, chkAnanas,chkTomaatti,
                 chkKatkarapu, chkKinkku, chkTonnikala,chkJauheliha, chkSienet,chkAuraJuusto,
                 chkKana,chkValkoSipuli);
-        paneeliKuitille.getChildren().addAll(textAlue,ilmoitusteksti,tfPoistettava,btPoista);
+        paneeliKuitille.getChildren().addAll(textAlue,ilmoitusteksti,tfPoistettava,poistoNimi,btPoista);
         keskiPaneeli.getChildren().addAll(paneeliCheckboxeille, valitutTuotteet);
         nappulaPaneeli.add(lbKuvanTekija,0,1);
         nappulaPaneeli.add(btLaskeHinta,1,0);
